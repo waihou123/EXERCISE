@@ -1,161 +1,190 @@
 TASK 1
-1) Triangle.java
-2) Error because the file has no main method
-3) import java.util.*;
-public class TriangleDemo
+import java.util.Scanner;
+class TestStudent{
+  public static void main(String[] args){
+  
+  Scanner input = new Scanner(System.in);
+  String matricNo;
+  double test1,test2;
+
+  Student [] studDegree = new Student[3];
+  for(int i=0;i<3;i++){
+
+  System.out.print("Matric No : ");
+  matricNo = input.next();
+  System.out.print("Test 1 : ");
+  test1 = input.nextDouble();
+  System.out.print("Test 2 : ");
+  test2 = input.nextDouble();
+
+  studDegree[i] = new Student(matricNo, test1, test2);
+  }
+  System.out.println("****************************************************");
+  System.out.println("              STUDENT INFORMATION                   ");
+  System.out.println("****************************************************");
+  System.out.println(" Matic No\t\t\t\t\t\tAverageMark\n");
+     for(int k=0;k<3;k++){
+     studDegree[k].calculateAverage();
+     System.out.println(studDegree[k].getStudentInfo());
+     }
+  }
+} 
+
+public class Student{
+private String matricNo;
+	private double test1, test2, averageMark;
+	
+	public Student(String matric, double ts1, double ts2 ){
+		matricNo = matric;
+		test1 = ts1;
+		test2 = ts2;	 
+	}
+	
+	public String getStudentInfo()
 {
-   public static void main(String[] args)
-   {
-      //create a Scanner object
-      Scanner input = new Scanner(System.in);
-
-      // Create a Triangle object.
-      Triangle tri = new Triangle();
-
-      // Prompt user to input value for height and base                 
-      System.out.print("Enter Height\t:");
-      double height = input.nextDouble();
-      System.out.print("Enter Base\t:");
-      double base = input.nextDouble();
-      //Set the height and base (use mutator) 
-      tri.set(height,base);
-      // Display the height, base and area (use accessor)
-      System.out.println("The pyramid's height is " + tri.getHeight());
-      System.out.println("The pyramid's base is " + tri.getBase());
-      System.out.println("The pyramid's area is " + tri.getArea());
-   }
+		return " "+matricNo+"\t\t\t\t\t\t\t"+averageMark;
+	}
+	
+public void calculateAverage()
+	{
+		averageMark = (test1 + test2)/2;
+	} 
 }
-
-
+  
+  
 
 TASK 2
-import java.util.*;
-public class TriangleDemo
-{
-   public static void main(String[] args)
-   {
-      //create a Scanner object
-      Scanner in = new Scanner(System.in);
+import java.util.Scanner;
 
-      // Create a Triangle object.
-      Triangle tri = new Triangle();
+public class MaxcomApp {
 
-      // Prompt user to input value for height and base                 
-      System.out.print("Enter Height: ");
-      double height = in.nextDouble();
-      System.out.print("Enter Base: ");
-      double base = in.nextDouble();
-      //Set the height and base (use mutator) 
-      tri.set(height,base);
-      // Display the height, base and area (use accessor)
-      System.out.println("The pyramid's height is " + tri.getHeight());
-      System.out.println("The pyramid's base is " + tri.getBase());
-      System.out.println("The pyramid's area is " + tri.getArea());
-   }
-}
-
-
-class Triangle
-{
-     private double height;
-     private double base;
-
-
-     public void setHeight(double len)
-     {
-          height = len;
-     }
-
-     // The setBase method accepts an argument which is 
-     //stored in the base field. 
-    
-     public void setBase(double b)
-     {
-          base = b;
-     }
-
-     //The set method accepts two arguments which are 
-     //stored in the height and base fields.
-  
-     public void set(double len, double b)
-     {
-          height = len;
-          base = b;
-     }
-
-    // The getHeight method returns the value stored in the 
-    //  height field.
-
-     public double getHeight()
-     {
-          return height;
-     }
-
-     // The getBase method returns the value stored in the   
-     //base field
-
-     public double getBase()
-     {
-          return base;
-     }
-
-     // The getArea method returns the value of area
-    // with formula : 0.5 * height * base
-
-     public double getArea()
-     {
-          return 0.5 * height * base;
-     }
-}
-
-3a) object = tri
- b) user-defined methods with return value = getHeight(), getBase(), getArea()
- c) user-defined methods with passing-parameters = setHeight(double len),setBase(double b),set(double len, double b)
- d) accessor methods = getHeight(), getBase(), getArea()
- e) mutator methods = setHeight(double len),setBase(double b),set(double len, double b)
-    
-    
-
-TASK 3
-import java.util.*;
-    class Employee{
-       int employeeID; 
-       double grossPay, stateTax, federalTax;
-    
-    public void input(){
+   public static void main(String[] args) {
+        int duration, category;
         Scanner input = new Scanner(System.in);
-        
-        System.out.print("Enter your employee ID number: ");
-        employeeID = input.nextInt();
-        System.out.print("Enter your Gross Pay: RM");
-        grossPay = input.nextDouble();
-        System.out.print("Enter your State Tax: RM");
-        stateTax = input.nextDouble();
-        System.out.print("Enter your Federal Tax: RM");
-        federalTax = input.nextDouble();
+        double charge = 0.0;
+        int respond;
+        CallChargeCalculator ccc = new CallChargeCalculator();
+        do {
+            System.out.println("Enter the call duration (in minutes): ");
+            duration = input.nextInt();
+            System.out.println("Enter Rate Category:  1.Daytime  2.Evening  3.Off-Peak");
+            category = input.nextInt();
+            charge = ccc.computeCharge(duration, category);
+            System.out.printf("The amount you have to pay is = RM%.2f %n", charge);
+            System.out.println("Do you want to continue? 1.Yes  2.No");
+            respond = input.nextInt();
+            System.out.println();
+            }
+            while (respond != 2);
+        System.out.println("Thank you! See you again.");
     }
 }
-    class Payroll{
-        private double netPay, grossPay, stateTax, federalTax;
-        
-        public Payroll(double grossPay, double stateTax, double federalTax){
-            this.grossPay = grossPay;
-            this.stateTax = stateTax;
-            this.federalTax = federalTax;
+class CallChargeCalculator {
+    double charge;
+
+    public double computeCharge(int duration, int category) {
+        double rate;
+
+        if (category== 1) {
+            rate =0.07;
+        } else if (category== 2) {
+            rate = 0.12;
+        } else {
+            rate = 0.05;
         }
-        public double calculateNetPay(){
-            netPay = grossPay - stateTax - federalTax;
-            return netPay;
-        }
-        public void printOutput(){
-            System.out.printf("Net pay is RM%.2f",calculateNetPay());
-        }
+        charge =duration*rate;
+        return charge;
+    }
 }
-        public class PayrollDemo {
-            public static void main(String[] args){
-                Employee emplo = new Employee();
-                emplo.input();
-                Payroll paid = new Payroll(emplo.grossPay, emplo.stateTax, emplo.federalTax);
-                paid.printOutput();
-       }  
+
+
+TASK 3
+import java.util.Scanner;
+public class Average{
+
+  public static void main (String[] args){
+  Scanner input = new Scanner(System.in);
+
+     int a,b,c,d;
+
+     System.out.println("Please enter 3 integers");
+     System.out.print("Integer 1: ");
+     a = input.nextInt();
+     System.out.print("Integer 2: ");   
+     b = input.nextInt();
+     System.out.print("Integer 3: ");
+     c = input.nextInt();
+     System.out.printf("The average for 3 integers: %.2f%n", average(a,b,c));
+
+     System.out.print("Enter one more integer: ");
+     d = input.nextInt();
+     System.out.printf("The average for 4 integers: %.2f",average(a,b,c,d));
+   }
+
+    public static double average(int a,int b,int c){
+      double average = ((double)(a+b+c))/3;
+      return average;
+    }
+
+    public static double average(int a,int b,int c,int d){
+      double average = ((double)(a+b+c+d))/4;
+      return average;
+    }
+}
+
+
+TASK 4
+import java.util.Scanner;
+
+public class TestBook {
+    public static void main (String [] args) {
+        Scanner input = new Scanner(System.in);
+        int n=0;
+        String title, mostExpensiveBook="";
+        double price,highestPrice=0;
+
+        System.out.print("Number of books: ");
+        n = input.nextInt();
+        Book [] myLibrary = new Book[n];
+
+        for (int i=0;i<n;i++){
+            input.nextLine();
+            System.out.print("Title: ");
+            title = input.nextLine();
+            System.out.print("Price: ");
+            price = input.nextDouble();
+
+            myLibrary[i] = new Book(title,price);
+
+            if (myLibrary[i].getPrice()>highestPrice){
+                highestPrice = myLibrary[i].getPrice();
+                mostExpensiveBook = myLibrary[i].getTitle();
+            }
+        }
+        System.out.printf("\"%s%s%.2f\n", mostExpensiveBook , "\" has the highest price with RM " , highestPrice);
+
+        System.out.println("Books that contain the term JAVA in their title:");
+        for(int j=0;j<n;j++){
+            if(myLibrary[j].getTitle().indexOf("Java")!=-1)
+                System.out.println(myLibrary[j].getTitle());
+        }
+
+    }
+}
+
+class Book {
+    private String title;      //book’s title
+    private double price;      //book’s price
+
+    public Book(String t, double p) {
+        title = t;
+        price = p;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }
